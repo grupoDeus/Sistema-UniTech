@@ -113,9 +113,9 @@ public class Index extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(58, 58, 58)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +129,7 @@ public class Index extends javax.swing.JFrame {
         jMenu1.setText("Cadastros");
         jMenu1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
-        clientes.setBackground(new java.awt.Color(153, 255, 0));
+        clientes.setBackground(new java.awt.Color(10, 255, 108));
         clientes.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         clientes.setForeground(new java.awt.Color(0, 0, 0));
         clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/usuario.png"))); // NOI18N
@@ -146,7 +146,7 @@ public class Index extends javax.swing.JFrame {
         });
         jMenu1.add(clientes);
 
-        produtos.setBackground(new java.awt.Color(153, 255, 0));
+        produtos.setBackground(new java.awt.Color(10, 255, 108));
         produtos.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         produtos.setForeground(new java.awt.Color(0, 0, 0));
         produtos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos.png"))); // NOI18N
@@ -160,14 +160,17 @@ public class Index extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setBackground(new java.awt.Color(10, 255, 108));
         jMenu2.setText("Movimentação");
         jMenu2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
+        jMenuItem3.setBackground(new java.awt.Color(10, 255, 108));
         jMenuItem3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/orcamento.png"))); // NOI18N
         jMenuItem3.setText("Orçamento");
         jMenu2.add(jMenuItem3);
 
+        jMenuItem4.setBackground(new java.awt.Color(10, 255, 108));
         jMenuItem4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas.png"))); // NOI18N
         jMenuItem4.setText("Venda");
@@ -175,10 +178,15 @@ public class Index extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setBackground(new java.awt.Color(10, 255, 108));
         jMenu3.setText("Operações");
         jMenu3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
-        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.setBackground(new java.awt.Color(10, 255, 108));
+        jMenuItem1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jMenuItem1.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/devolucao.png"))); // NOI18N
+        jMenuItem1.setText("Devolução");
         jMenu3.add(jMenuItem1);
 
         jMenuBar1.add(jMenu3);
@@ -196,14 +204,14 @@ public class Index extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(294, 294, 294)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(118, 118, 118)
+                .addGap(117, 117, 117)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
