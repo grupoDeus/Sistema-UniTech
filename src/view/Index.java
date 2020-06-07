@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -18,23 +19,15 @@ import javax.swing.MenuElement;
 import javax.swing.Timer;
 import javax.swing.plaf.basic.BasicMenuBarUI;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author CASA
- */
 public class Index extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Index
-     */
+    
     public Index() {
 
         initComponents();
+        
+        //muda icone jframe
+        mudaJframe();
 
 //iniciar o jframe maximizado 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -67,8 +60,10 @@ public class Index extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("UNITECH -  TELA PRINCIPAL");
         setBackground(new java.awt.Color(151, 134, 125));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -76,7 +71,7 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 0));
+        jPanel1.setBackground(new java.awt.Color(10, 255, 108));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -108,7 +103,7 @@ public class Index extends javax.swing.JFrame {
                     .addComponent(jlHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel2.setBackground(new java.awt.Color(153, 255, 0));
+        jPanel2.setBackground(new java.awt.Color(10, 255, 108));
 
         jLabel1.setBackground(new java.awt.Color(153, 255, 0));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/unitech.png"))); // NOI18N
@@ -118,16 +113,16 @@ public class Index extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jMenu1.setBackground(new java.awt.Color(0, 0, 0));
@@ -182,6 +177,10 @@ public class Index extends javax.swing.JFrame {
 
         jMenu3.setText("Operações");
         jMenu3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+
+        jMenuItem1.setText("jMenuItem1");
+        jMenu3.add(jMenuItem1);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -194,17 +193,17 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(294, 294, 294)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(277, 277, 277))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(119, 119, 119)
+                .addGap(118, 118, 118)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -223,6 +222,10 @@ public class Index extends javax.swing.JFrame {
 
         timer.start();
 
+    }
+
+    private void mudaJframe() {
+       this.setIconImage(new ImageIcon(getClass().getResource("/imagens/unitech52px.png")).getImage());
     }
 
     //metodo para pegar a hora atual 
@@ -290,7 +293,7 @@ public class Index extends javax.swing.JFrame {
         menuBar.setUI(new BasicMenuBarUI() {
 
             public void paint(Graphics g, JComponent c) {
-                Color corMenu= new Color(153,255,0);
+                Color corMenu= new Color(10,255,108);
                 g.setColor(corMenu);
                 g.fillRect(0, 0, c.getWidth(), c.getHeight());
             }
@@ -326,7 +329,7 @@ public class Index extends javax.swing.JFrame {
     }
 
     private void changeComponentColors(Component comp) {
-        Color corFundoMenu= new Color(153,255,0);
+        Color corFundoMenu= new Color(10,255,108);
         comp.setBackground(corFundoMenu);
         comp.setForeground(Color.black);
     }
@@ -339,6 +342,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
