@@ -23,6 +23,8 @@ public class CadastroClientes extends javax.swing.JFrame {
     public CadastroClientes() {
         initComponents();
 
+//inicia tela no centro
+        this.setLocationRelativeTo(null);
 //muda cor do jframe
         Color minhaCor = new Color(51, 51, 51);
         getContentPane().setBackground(minhaCor);
@@ -58,8 +60,9 @@ public class CadastroClientes extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -310,7 +313,7 @@ public class CadastroClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       txtNome.requestFocus();
+        txtNome.requestFocus();
     }//GEN-LAST:event_formWindowOpened
 
     /**
