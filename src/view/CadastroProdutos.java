@@ -27,6 +27,8 @@ public class CadastroProdutos extends javax.swing.JFrame {
         mudarCabecalhoTabela();
         alteraCoresTabela();
 
+        txtDescricao.requestFocus();
+
     }
 
     public void alteraCoresTabela() {
@@ -56,6 +58,12 @@ public class CadastroProdutos extends javax.swing.JFrame {
         for (int i = 0; i < tabelaProdutos.getModel().getColumnCount(); i++) {
             tabelaProdutos.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }
+
+    }
+    static int id;
+
+    public void gerarid() {
+        id++;
     }
 
     /**
@@ -80,15 +88,15 @@ public class CadastroProdutos extends javax.swing.JFrame {
         txtSenha = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        txtNome1 = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtCodigo1 = new javax.swing.JTextField();
-        txtTelefone1 = new javax.swing.JTextField();
+        txtCod = new javax.swing.JTextField();
+        txtCat = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        txtEmail1 = new javax.swing.JTextField();
+        txtPreco = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        txtSenha1 = new javax.swing.JPasswordField();
+        txtMarca1 = new javax.swing.JTextField();
         bt_Criar = new javax.swing.JButton();
         bt_Alterar = new javax.swing.JButton();
         bt_Salvar = new javax.swing.JButton();
@@ -216,28 +224,43 @@ public class CadastroProdutos extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("Descrição");
 
-        txtNome1.setBackground(new java.awt.Color(255, 255, 255));
-        txtNome1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtNome1.setForeground(new java.awt.Color(0, 0, 0));
+        txtDescricao.setBackground(new java.awt.Color(255, 255, 255));
+        txtDescricao.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtDescricao.setForeground(new java.awt.Color(0, 0, 0));
+        txtDescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescricaoActionPerformed(evt);
+            }
+        });
+        txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescricaoKeyPressed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(204, 204, 204));
         jLabel10.setText("Código");
 
-        txtCodigo1.setBackground(new java.awt.Color(255, 255, 255));
-        txtCodigo1.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtCod.setBackground(new java.awt.Color(255, 255, 255));
+        txtCod.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtCodigo1MouseEntered(evt);
+                txtCodMouseEntered(evt);
             }
         });
-        txtCodigo1.addActionListener(new java.awt.event.ActionListener() {
+        txtCod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigo1ActionPerformed(evt);
+                txtCodActionPerformed(evt);
             }
         });
 
-        txtTelefone1.setBackground(new java.awt.Color(255, 255, 255));
-        txtTelefone1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtCat.setBackground(new java.awt.Color(255, 255, 255));
+        txtCat.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtCat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCatKeyPressed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
@@ -247,19 +270,28 @@ public class CadastroProdutos extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(204, 204, 204));
         jLabel12.setText("Marca");
 
-        txtEmail1.setBackground(new java.awt.Color(255, 255, 255));
-        txtEmail1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtPreco.setBackground(new java.awt.Color(255, 255, 255));
+        txtPreco.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtPreco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecoActionPerformed(evt);
+            }
+        });
+        txtPreco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPrecoKeyPressed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(204, 204, 204));
         jLabel13.setText("Preço");
 
-        txtSenha1.setBackground(new java.awt.Color(255, 255, 255));
-        txtSenha1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtSenha1.setForeground(new java.awt.Color(0, 0, 0));
-        txtSenha1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenha1ActionPerformed(evt);
+        txtMarca1.setBackground(new java.awt.Color(255, 255, 255));
+        txtMarca1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtMarca1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMarca1KeyPressed(evt);
             }
         });
 
@@ -270,7 +302,7 @@ public class CadastroProdutos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,16 +318,16 @@ public class CadastroProdutos extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(421, 421, 421)
                         .addComponent(jLabel12))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addGap(83, 83, 83)
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(354, 354, 354)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(271, 271, 271)
-                                    .addComponent(txtTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtEmail1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtSenha1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtMarca1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCat, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -303,24 +335,24 @@ public class CadastroProdutos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txtCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNome1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtMarca1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtSenha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         bt_Criar.setBackground(new java.awt.Color(10, 255, 108));
@@ -442,7 +474,7 @@ public class CadastroProdutos extends javax.swing.JFrame {
                         .addComponent(bt_Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bt_Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(53, 53, 53))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -479,32 +511,29 @@ public class CadastroProdutos extends javax.swing.JFrame {
 
     private void txtCodigoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodigoMouseEntered
 
-        txtCodigo.setEditable(false);
+
     }//GEN-LAST:event_txtCodigoMouseEntered
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        txtCodigo.setEditable(false);
+
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSenhaActionPerformed
 
-    private void txtCodigo1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodigo1MouseEntered
+    private void txtCodMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodMouseEntered
 
-        txtCodigo.setEditable(false);
-    }//GEN-LAST:event_txtCodigo1MouseEntered
+        txtCod.setEditable(false);
 
-    private void txtCodigo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigo1ActionPerformed
-        txtCodigo.setEditable(false);
-    }//GEN-LAST:event_txtCodigo1ActionPerformed
+    }//GEN-LAST:event_txtCodMouseEntered
 
-    private void txtSenha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenha1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenha1ActionPerformed
+    private void txtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodActionPerformed
+
+    }//GEN-LAST:event_txtCodActionPerformed
 
     private void bt_CriarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_CriarMouseClicked
-        txtNome.setEnabled(true);
+
 
     }//GEN-LAST:event_bt_CriarMouseClicked
 
@@ -513,12 +542,42 @@ public class CadastroProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_CriarActionPerformed
 
     private void bt_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_SalvarActionPerformed
-
+        gerarid();
     }//GEN-LAST:event_bt_SalvarActionPerformed
 
     private void bt_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ExcluirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bt_ExcluirActionPerformed
+
+    private void txtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoActionPerformed
+
+    }//GEN-LAST:event_txtDescricaoActionPerformed
+
+    private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            txtCat.requestFocus();
+        }
+    }//GEN-LAST:event_txtDescricaoKeyPressed
+
+    private void txtCatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCatKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            txtPreco.requestFocus();
+        }
+    }//GEN-LAST:event_txtCatKeyPressed
+
+    private void txtPrecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoKeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            bt_Salvar.requestFocus();
+        }
+    }//GEN-LAST:event_txtPrecoKeyPressed
+
+    private void txtMarca1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarca1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMarca1KeyPressed
+
+    private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -579,15 +638,15 @@ public class CadastroProdutos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaProdutos;
+    private javax.swing.JTextField txtCat;
+    private javax.swing.JTextField txtCod;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtCodigo1;
+    private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEmail1;
+    private javax.swing.JTextField txtMarca1;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtNome1;
+    private javax.swing.JTextField txtPreco;
     private javax.swing.JPasswordField txtSenha;
-    private javax.swing.JPasswordField txtSenha1;
     private javax.swing.JTextField txtTelefone;
-    private javax.swing.JTextField txtTelefone1;
     // End of variables declaration//GEN-END:variables
 }
