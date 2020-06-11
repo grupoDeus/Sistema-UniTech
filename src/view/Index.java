@@ -16,26 +16,78 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.MenuElement;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.plaf.basic.BasicMenuBarUI;
 
 public class Index extends javax.swing.JFrame {
 
-    
+    private void customizeMenuBar(JMenuBar menuBar) {
+
+        menuBar.setUI(new BasicMenuBarUI() {
+
+            public void paint(Graphics g, JComponent c) {
+                Color corMenu = new Color(10, 255, 108);
+                g.setColor(corMenu);
+                g.fillRect(0, 0, c.getWidth(), c.getHeight());
+            }
+
+        });
+
+        MenuElement[] menus = menuBar.getSubElements();
+
+        for (MenuElement menuElement : menus) {
+
+            JMenu menu = (JMenu) menuElement.getComponent();
+            changeComponentColors(menu);
+            menu.setOpaque(true);
+
+            MenuElement[] menuElements = menu.getSubElements();
+
+            for (MenuElement popupMenuElement : menuElements) {
+
+                JPopupMenu popupMenu = (JPopupMenu) popupMenuElement.getComponent();
+                popupMenu.setBorder(null);
+
+                MenuElement[] menuItens = popupMenuElement.getSubElements();
+
+                for (MenuElement menuItemElement : menuItens) {
+
+                    JMenuItem menuItem = (JMenuItem) menuItemElement.getComponent();
+                    changeComponentColors(menuItem);
+                    menuItem.setOpaque(true);
+
+                }
+            }
+
+        }
+    }
+
+    private void mudaJframe() {
+        this.setIconImage(new ImageIcon(getClass().getResource("/imagens/unitech52px.png")).getImage());
+    }
+
+    private void changeComponentColors(Component comp) {
+        Color corFundoMenu = new Color(10, 255, 108);
+        comp.setBackground(corFundoMenu);
+        comp.setForeground(Color.black);
+    }
+
     public Index() {
 
         initComponents();
-        
+
         //muda icone jframe
         mudaJframe();
 
 //iniciar o jframe maximizado 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
         Color meuBackground = new Color(51, 51, 51);
         getContentPane().setBackground(meuBackground);
 
         customizeMenuBar(jMenuBar1);
+      
     }
 
     /**
@@ -113,8 +165,8 @@ public class Index extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
         jPanel3Layout.setVerticalGroup(
@@ -202,16 +254,16 @@ public class Index extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(285, 285, 285)
+                .addGap(282, 282, 282)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(130, 130, 130)
+                .addGap(139, 139, 139)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -232,10 +284,6 @@ public class Index extends javax.swing.JFrame {
 
     }
 
-    private void mudaJframe() {
-       this.setIconImage(new ImageIcon(getClass().getResource("/imagens/unitech52px.png")).getImage());
-    }
-
     //metodo para pegar a hora atual 
     class hora implements ActionListener {
 
@@ -249,16 +297,16 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void produtosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtosActionPerformed
-       
+
     }//GEN-LAST:event_produtosActionPerformed
 
     private void clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientesMouseClicked
-       
+
     }//GEN-LAST:event_clientesMouseClicked
 
     private void clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesActionPerformed
-         CadastroClientes clientes= new CadastroClientes();
-       clientes.setVisible(true);
+        CadastroClientes clientes = new CadastroClientes();
+        clientes.setVisible(true);
     }//GEN-LAST:event_clientesActionPerformed
 
     /**
@@ -294,52 +342,6 @@ public class Index extends javax.swing.JFrame {
 
         });
 
-    }
-
-    private void customizeMenuBar(JMenuBar menuBar) {
-
-        menuBar.setUI(new BasicMenuBarUI() {
-
-            public void paint(Graphics g, JComponent c) {
-                Color corMenu= new Color(10,255,108);
-                g.setColor(corMenu);
-                g.fillRect(0, 0, c.getWidth(), c.getHeight());
-            }
-
-        });
-
-        MenuElement[] menus = menuBar.getSubElements();
-
-        for (MenuElement menuElement : menus) {
-
-            JMenu menu = (JMenu) menuElement.getComponent();
-            changeComponentColors(menu);
-            menu.setOpaque(true);
-
-            MenuElement[] menuElements = menu.getSubElements();
-
-            for (MenuElement popupMenuElement : menuElements) {
-
-                JPopupMenu popupMenu = (JPopupMenu) popupMenuElement.getComponent();
-                popupMenu.setBorder(null);
-
-                MenuElement[] menuItens = popupMenuElement.getSubElements();
-
-                for (MenuElement menuItemElement : menuItens) {
-
-                    JMenuItem menuItem = (JMenuItem) menuItemElement.getComponent();
-                    changeComponentColors(menuItem);
-                    menuItem.setOpaque(true);
-
-                }
-            }
-        }
-    }
-
-    private void changeComponentColors(Component comp) {
-        Color corFundoMenu= new Color(10,255,108);
-        comp.setBackground(corFundoMenu);
-        comp.setForeground(Color.black);
     }
 
 
