@@ -203,6 +203,11 @@ public class Index extends javax.swing.JFrame {
         produtos.setForeground(new java.awt.Color(0, 0, 0));
         produtos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos.png"))); // NOI18N
         produtos.setText("Produtos");
+        produtos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                produtosMouseClicked(evt);
+            }
+        });
         produtos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 produtosActionPerformed(evt);
@@ -308,6 +313,11 @@ public class Index extends javax.swing.JFrame {
         CadastroClientes clientes = new CadastroClientes();
         clientes.setVisible(true);
     }//GEN-LAST:event_clientesActionPerformed
+
+    private void produtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_produtosMouseClicked
+       CadastroProdutos prod= new CadastroProdutos();
+       prod.setVisible(true);
+    }//GEN-LAST:event_produtosMouseClicked
 
     /**
      * @param args the command line arguments

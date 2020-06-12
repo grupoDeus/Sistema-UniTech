@@ -7,6 +7,7 @@ package view;
 
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
@@ -14,6 +15,17 @@ public class Login extends javax.swing.JFrame {
 
     private void mudaJframe() {
         this.setIconImage(new ImageIcon(getClass().getResource("/imagens/unitech52px.png")).getImage());
+    }
+    void validaLogin(){
+         if (login.equals("admin") && senha.equals("123")) {
+            Index in= new Index();
+            in.setVisible(true);
+            
+        }else if(login.equals(" ")||senha.equals(" ")){
+             JOptionPane.showMessageDialog(null, "Login ou senha inválidos");
+        }else{
+            JOptionPane.showMessageDialog(null, "Login ou senha inválidos");
+        }
     }
 
     public Login() {
@@ -211,7 +223,12 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaKeyPressed
 
     private void bt_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_entrarActionPerformed
-
+        login=txtLogin.getText();
+        senha=txtSenha.getText();
+        validaLogin();
+        
+       
+       
     }//GEN-LAST:event_bt_entrarActionPerformed
 
    

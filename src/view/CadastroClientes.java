@@ -1,13 +1,160 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class CadastroClientes extends javax.swing.JFrame {
+
+    String idClientes = "C:\\Arquivos Unitech\\sequenciaClientes.txt";
+    int codigo;
+ 
+    String dadosClientes = "C:\\Arquivos Unitech\\dadosClientes.dat";
+    Object[][] clientes;
+
+    void recuperaCodigoSequencia() {
+
+        codigo = 1;
+        try {
+            File f = new File(idClientes);
+            Scanner s = new Scanner(f);
+            if (s.hasNext()) {
+                String nS = s.nextLine();
+                codigo = Integer.parseInt(nS) + 1;
+            }
+            s.close();
+        } catch (Exception ex) {
+
+        }
+    }
+
+    void gravarCodigoSequencia() {
+        try {
+            File f = new File(idClientes);
+            PrintStream ps = new PrintStream(f);
+            ps.print("" + codigo);
+            ps.close();
+        } catch (Exception ex) {
+
+        }
+    }
+
+    void alteraCoresTabela() {
+        Color corLinha = new Color(51, 51, 51);
+
+        tbCliente.setRowHeight(20);
+        tbCliente.setRowHeight(1, 100);
+
+        tbCliente.setShowGrid(true);
+        tbCliente.setGridColor(corLinha);
+
+        tbCliente.setBackground(corLinha);
+        tbCliente.setForeground(Color.WHITE);
+
+        tbCliente.setSelectionBackground(corLinha);
+        tbCliente.setSelectionForeground(Color.BLACK);
+
+        tbCliente.setFont(new Font("Comic Sans MS", Font.ITALIC, 18));
+
+    }
+
+    void insereTabela(String nome, String telefone, String cpf, int idade, int codigo) {
+        DefaultTableModel dtm = (DefaultTableModel) tbCliente.getModel();
+        dtm.addRow(new Object[]{nome, telefone, cpf, idade, codigo});
+    }
+
+    void transformaTabelaMatriz() {
+        DefaultTableModel dtm = (DefaultTableModel) tbCliente.getModel();
+
+        int colunas = dtm.getColumnCount();
+        int linhas = dtm.getRowCount();
+        clientes = new Object[linhas][colunas];
+
+        for (int i = 0; i < linhas; i++) {
+            clientes[i][0] = dtm.getValueAt(i, 0);
+            clientes[i][1] = dtm.getValueAt(i, 1);
+            clientes[i][2] = dtm.getValueAt(i, 2);
+            clientes[i][3] = dtm.getValueAt(i, 3);
+            clientes[i][4] = dtm.getValueAt(i, 4);
+        }
+
+    }
+
+    public void mudaCabecalhoTabela() {
+        Color corCabecalho = new Color(10, 255, 108);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(corCabecalho);
+
+        for (int i = 0; i < tbCliente.getModel().getColumnCount(); i++) {
+            tbCliente.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+    }
+
+    void recuperaDadosArquivo() {
+        try {
+            File f = new File(dadosClientes);
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            clientes = (Object[][]) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (Exception ex) {
+
+        }
+    }
 
     private void mudaIconeJframe() {
         this.setIconImage(new ImageIcon(getClass().getResource("/imagens/unitech52px.png")).getImage());
 
+    }
+
+    void transformaMatrizTabela() {
+        DefaultTableModel dtm = (DefaultTableModel) tbCliente.getModel();
+        dtm.setRowCount(0);
+
+        for (int i = 0; i < clientes.length; i++) {
+            String nome = (String) clientes[i][0];
+            String telefone = (String) clientes[i][1];
+            String cpf = (String) clientes[i][2];
+            int idade = (int) clientes[i][3];
+            int codigo = (int) clientes[i][4];
+            insereTabela(nome, telefone, cpf, idade, codigo);
+        }
+    }
+
+    void gravaDadosArquivo() {
+        try {
+            File f = new File(dadosClientes);
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(clientes);
+            oos.close();
+            fos.close();
+        } catch (Exception ex) {
+
+        }
+
+    }
+
+    void excluiRegistroTabela() {
+        DefaultTableModel dtm = (DefaultTableModel) tbCliente.getModel();
+        while (tbCliente.getSelectedRow() >= 0) {
+
+           ((DefaultTableModel) tbCliente.getModel()).removeRow(tbCliente.getSelectedRow());
+        }
+        
+    
+    
     }
 
     public CadastroClientes() {
@@ -16,10 +163,12 @@ public class CadastroClientes extends javax.swing.JFrame {
         mudaIconeJframe();
 
 //inicia tela no centro
-        this.setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
 //muda cor do jframe
         Color minhaCor = new Color(51, 51, 51);
         getContentPane().setBackground(minhaCor);
+        alteraCoresTabela();
+        mudaCabecalhoTabela();
 
     }
 
@@ -34,18 +183,18 @@ public class CadastroClientes extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
         txtTelefone = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
+        txtCpf = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JPasswordField();
+        txtIdade = new javax.swing.JTextField();
         bt_Excluir = new javax.swing.JButton();
         bt_Criar = new javax.swing.JButton();
         bt_Salvar = new javax.swing.JButton();
         bt_Alterar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbCliente = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
@@ -54,6 +203,9 @@ public class CadastroClientes extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
             }
         });
 
@@ -115,22 +267,6 @@ public class CadastroClientes extends javax.swing.JFrame {
         txtNome.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtNome.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setText("Código");
-
-        txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
-        txtCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtCodigoMouseEntered(evt);
-            }
-        });
-        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoActionPerformed(evt);
-            }
-        });
-
         txtTelefone.setBackground(new java.awt.Color(255, 255, 255));
         txtTelefone.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
@@ -140,23 +276,17 @@ public class CadastroClientes extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel7.setText("Email");
+        jLabel7.setText("CPF");
 
-        txtEmail.setBackground(new java.awt.Color(255, 255, 255));
-        txtEmail.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtCpf.setBackground(new java.awt.Color(255, 255, 255));
+        txtCpf.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel8.setText("Senha");
+        jLabel8.setText("Idade");
 
-        txtSenha.setBackground(new java.awt.Color(255, 255, 255));
-        txtSenha.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtSenha.setForeground(new java.awt.Color(0, 0, 0));
-        txtSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaActionPerformed(evt);
-            }
-        });
+        txtIdade.setBackground(new java.awt.Color(255, 255, 255));
+        txtIdade.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -171,43 +301,32 @@ public class CadastroClientes extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel5)))
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 185, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(254, 254, 254))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(54, 54, 54)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addContainerGap())
+                    .addComponent(jLabel8)
+                    .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36))
         );
 
         bt_Excluir.setBackground(new java.awt.Color(10, 255, 108));
@@ -253,30 +372,61 @@ public class CadastroClientes extends javax.swing.JFrame {
         bt_Alterar.setForeground(new java.awt.Color(0, 0, 0));
         bt_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
         bt_Alterar.setText("Alterar");
+        bt_Alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_AlterarActionPerformed(evt);
+            }
+        });
+
+        tbCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tbCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Telefone", "CPF", "Idade", "Código Cliente"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tbCliente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(bt_Criar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(bt_Alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(bt_Criar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(bt_Alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79)
+                        .addComponent(bt_Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
                 .addComponent(bt_Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(124, 124, 124)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,7 +436,9 @@ public class CadastroClientes extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_Criar)
                     .addComponent(bt_Alterar)
@@ -300,44 +452,81 @@ public class CadastroClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        txtCodigo.setEditable(false);
-    }//GEN-LAST:event_txtCodigoActionPerformed
-
-    private void txtCodigoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCodigoMouseEntered
-
-        txtCodigo.setEditable(false);
-
-    }//GEN-LAST:event_txtCodigoMouseEntered
-
     private void bt_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ExcluirActionPerformed
-        // TODO add your handling code here:
+
+        int resposta = JOptionPane.showConfirmDialog (null, "Você quer realmente cancelar este registro?", 
+                "ATENÇÃO", JOptionPane.YES_NO_OPTION);
+        if(resposta == JOptionPane.YES_OPTION){
+            excluiRegistroTabela();
+            
+        }else if(resposta==JOptionPane.NO_OPTION){
+            
+        }
+
+    
     }//GEN-LAST:event_bt_ExcluirActionPerformed
 
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        requestFocus();
-
+        recuperaDadosArquivo();
+        transformaMatrizTabela();
 
     }//GEN-LAST:event_formWindowOpened
 
     private void bt_CriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_CriarActionPerformed
-
+        txtNome.setText(" ");
+        txtTelefone.setText(" ");
+        txtCpf.setText(" ");
+        txtIdade.setText(" ");
 
     }//GEN-LAST:event_bt_CriarActionPerformed
 
     private void bt_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_SalvarActionPerformed
+        recuperaCodigoSequencia();
+        int novoCodigo = codigo;
+        String nome = txtNome.getText();
+        String telefone = txtTelefone.getText();
+        String cpf = txtCpf.getText();
+        int idade = Integer.parseInt(txtIdade.getText());
+        insereTabela(nome, telefone, cpf, idade, novoCodigo);
+        transformaTabelaMatriz();
+        gravaDadosArquivo();
+        gravarCodigoSequencia();
+
+        JOptionPane.showMessageDialog(null, "Dados salvos com sucesso");
+
+        txtNome.setText(" ");
+        txtTelefone.setText(" ");
+        txtCpf.setText(" ");
+        txtIdade.setText(" ");
 
 
     }//GEN-LAST:event_bt_SalvarActionPerformed
 
     private void bt_CriarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_CriarMouseClicked
-        txtNome.setEnabled(true);
+      
 
     }//GEN-LAST:event_bt_CriarMouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+
+    }//GEN-LAST:event_formWindowActivated
+
+    private void bt_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AlterarActionPerformed
+        int linhaSelecionada = tbCliente.getSelectedRow();
+        if (linhaSelecionada >= 0) {
+            DefaultTableModel dtm = (DefaultTableModel) tbCliente.getModel();
+            String nome = txtNome.getText();
+            String telefone = txtTelefone.getText();
+            String cpf = txtTelefone.getText();
+            int idade = Integer.parseInt(txtIdade.getText());
+            dtm.setValueAt(nome, linhaSelecionada, 1);
+            dtm.setValueAt(telefone, linhaSelecionada, 2);
+            dtm.setValueAt(cpf, linhaSelecionada, 3);
+            dtm.setValueAt(idade, linhaSelecionada, 4);
+            transformaTabelaMatriz();
+            gravaDadosArquivo();
+        }
+    }//GEN-LAST:event_bt_AlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,17 +572,17 @@ public class CadastroClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtEmail;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbCliente;
+    private javax.swing.JTextField txtCpf;
+    private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 
