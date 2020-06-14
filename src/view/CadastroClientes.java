@@ -2,13 +2,21 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -18,7 +26,8 @@ public class CadastroClientes extends javax.swing.JFrame {
 
     String idClientes = "C:\\Arquivos Unitech\\sequenciaClientes.txt";
     int codigo;
- 
+    int linha;
+
     String dadosClientes = "C:\\Arquivos Unitech\\dadosClientes.dat";
     Object[][] clientes;
 
@@ -148,13 +157,65 @@ public class CadastroClientes extends javax.swing.JFrame {
 
     void excluiRegistroTabela() {
         DefaultTableModel dtm = (DefaultTableModel) tbCliente.getModel();
-        while (tbCliente.getSelectedRow() >= 0) {
-
-           ((DefaultTableModel) tbCliente.getModel()).removeRow(tbCliente.getSelectedRow());
+        if (tbCliente.getSelectedRow() >= 0) {
+            dtm.removeRow(tbCliente.getSelectedRow());
+            tbCliente.setModel(dtm);
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor selecionar uma linha");
         }
+    }
+
+    void pegaLinhaSelecionada() {
+        linha = tbCliente.getSelectedRow();
         
-    
-    
+        
+
+        JOptionPane.showMessageDialog(null, " Linha selecionada: " + (linha + 1));
+
+    }
+
+    void excluiRegistroArquivo() throws IOException {
+        String contatoAExcluir = "";
+
+        FileReader fileReader = null;
+        FileWriter fileWriter = null;
+        BufferedReader leitor = null;
+
+        String nomeDoArquivo = "C:\\Arquivos Unitech\\dadosClientes.dat";
+        String arquivoConferir = "C:\\Arquivos Unitech\\dadosClientes_new.txt";
+        String line = "";
+
+        try {
+            fileReader = new FileReader(new File(nomeDoArquivo));
+            fileWriter = new FileWriter(new File(arquivoConferir));
+            leitor = new BufferedReader(fileReader);
+            line = "";
+            while ((line = leitor.readLine()) != null) {
+                if (!line.trim().equals(contatoAExcluir.trim())) {
+                    fileWriter.write(line + "\r\n");
+                }
+            }
+
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                fileWriter.close();
+                fileReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+       
+    }
+     void pegaValorExcluido(){
+         int valorExcluido=tbCliente.getRowCount();
+         if (valorExcluido<=0) {
+             JOptionPane.showMessageDialog(null, "A Linha excluida foi á : " + (valorExcluido));
+             
+             
+         }
+        
     }
 
     public CadastroClientes() {
@@ -454,16 +515,24 @@ public class CadastroClientes extends javax.swing.JFrame {
 
     private void bt_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ExcluirActionPerformed
 
-        int resposta = JOptionPane.showConfirmDialog (null, "Você quer realmente cancelar este registro?", 
+        int resposta = JOptionPane.showConfirmDialog(null, "Você quer realmente cancelar este registro?",
                 "ATENÇÃO", JOptionPane.YES_NO_OPTION);
-        if(resposta == JOptionPane.YES_OPTION){
+        if (resposta == JOptionPane.YES_OPTION) {
             excluiRegistroTabela();
-            
-        }else if(resposta==JOptionPane.NO_OPTION){
-            
+            pegaValorExcluido();
+            JOptionPane.showMessageDialog(null, "Exclusão feita com sucesso",
+                    "Exclusão Cliente",JOptionPane.INFORMATION_MESSAGE);
+            try {
+                excluiRegistroArquivo();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        } else if (resposta == JOptionPane.NO_OPTION) {
+
         }
 
-    
+
     }//GEN-LAST:event_bt_ExcluirActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -473,10 +542,10 @@ public class CadastroClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void bt_CriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_CriarActionPerformed
-        txtNome.setText(" ");
-        txtTelefone.setText(" ");
-        txtCpf.setText(" ");
-        txtIdade.setText(" ");
+        txtNome.setText("");
+        txtTelefone.setText("");
+        txtCpf.setText("");
+        txtIdade.setText("");
 
     }//GEN-LAST:event_bt_CriarActionPerformed
 
@@ -494,16 +563,14 @@ public class CadastroClientes extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(null, "Dados salvos com sucesso");
 
-        txtNome.setText(" ");
-        txtTelefone.setText(" ");
-        txtCpf.setText(" ");
-        txtIdade.setText(" ");
-
 
     }//GEN-LAST:event_bt_SalvarActionPerformed
 
     private void bt_CriarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_CriarMouseClicked
-      
+        txtNome.setText("");
+        txtTelefone.setText("");
+        txtCpf.setText("");
+        txtIdade.setText(" ");
 
     }//GEN-LAST:event_bt_CriarMouseClicked
 

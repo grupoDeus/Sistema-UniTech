@@ -16,14 +16,12 @@ public class Login extends javax.swing.JFrame {
     private void mudaJframe() {
         this.setIconImage(new ImageIcon(getClass().getResource("/imagens/unitech52px.png")).getImage());
     }
-    void validaLogin(){
-         if (login.equals("admin") && senha.equals("123")) {
-            Index in= new Index();
+
+    void validaLogin() {
+        if (login.equals("admin") && senha.equals("123")) {
+            Index in = new Index();
             in.setVisible(true);
-            
-        }else if(login.equals(" ")||senha.equals(" ")){
-             JOptionPane.showMessageDialog(null, "Login ou senha inválidos");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Login ou senha inválidos");
         }
     }
@@ -42,7 +40,6 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new Color(10, 255, 108));
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -207,7 +204,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
     private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
-      
+
     }//GEN-LAST:event_txtLoginActionPerformed
 
     private void txtLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyPressed
@@ -223,15 +220,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaKeyPressed
 
     private void bt_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_entrarActionPerformed
-        login=txtLogin.getText();
-        senha=txtSenha.getText();
+        login = txtLogin.getText();
+        senha = txtSenha.getText();
         validaLogin();
-        
-       
-       
+
+
     }//GEN-LAST:event_bt_entrarActionPerformed
 
-   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
