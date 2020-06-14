@@ -109,10 +109,7 @@ public class Index extends javax.swing.JFrame {
         clientes = new javax.swing.JMenuItem();
         produtos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UNITECH -  TELA PRINCIPAL");
@@ -221,12 +218,6 @@ public class Index extends javax.swing.JFrame {
         jMenu2.setText("Movimentação");
         jMenu2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
-        jMenuItem3.setBackground(new java.awt.Color(10, 255, 108));
-        jMenuItem3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/orcamento.png"))); // NOI18N
-        jMenuItem3.setText("Orçamento");
-        jMenu2.add(jMenuItem3);
-
         jMenuItem4.setBackground(new java.awt.Color(10, 255, 108));
         jMenuItem4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas.png"))); // NOI18N
@@ -234,19 +225,6 @@ public class Index extends javax.swing.JFrame {
         jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
-
-        jMenu3.setBackground(new java.awt.Color(10, 255, 108));
-        jMenu3.setText("Operações");
-        jMenu3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-
-        jMenuItem1.setBackground(new java.awt.Color(10, 255, 108));
-        jMenuItem1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jMenuItem1.setForeground(new java.awt.Color(0, 0, 0));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/devolucao.png"))); // NOI18N
-        jMenuItem1.setText("Devolução");
-        jMenu3.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -360,10 +338,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
