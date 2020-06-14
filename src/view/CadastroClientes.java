@@ -2,21 +2,13 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -174,7 +166,7 @@ public class CadastroClientes extends javax.swing.JFrame {
 
     }
 
-    void excluiRegistroArquivo() throws IOException {
+    /*void excluiRegistroArquivo() throws IOException {
         String contatoAExcluir = "";
 
         FileReader fileReader = null;
@@ -205,18 +197,13 @@ public class CadastroClientes extends javax.swing.JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-       
-    }
-     void pegaValorExcluido(){
-         int valorExcluido=tbCliente.getRowCount();
-         if (valorExcluido<=0) {
-             JOptionPane.showMessageDialog(null, "A Linha excluida foi á : " + (valorExcluido));
-             
-             
-         }
+        }*/
+
+
+    
+     
         
-    }
+    
 
     public CadastroClientes() {
         initComponents();
@@ -431,8 +418,8 @@ public class CadastroClientes extends javax.swing.JFrame {
         bt_Alterar.setBackground(new java.awt.Color(10, 255, 108));
         bt_Alterar.setFont(new java.awt.Font("SansSerif", 3, 14)); // NOI18N
         bt_Alterar.setForeground(new java.awt.Color(0, 0, 0));
-        bt_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
-        bt_Alterar.setText("Alterar");
+        bt_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/update.png"))); // NOI18N
+        bt_Alterar.setText("Atualizar");
         bt_Alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_AlterarActionPerformed(evt);
@@ -478,9 +465,9 @@ public class CadastroClientes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(bt_Criar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
+                        .addGap(69, 69, 69)
                         .addComponent(bt_Alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79)
+                        .addGap(66, 66, 66)
                         .addComponent(bt_Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(217, 217, 217)
@@ -519,15 +506,9 @@ public class CadastroClientes extends javax.swing.JFrame {
                 "ATENÇÃO", JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             excluiRegistroTabela();
-            pegaValorExcluido();
             JOptionPane.showMessageDialog(null, "Exclusão feita com sucesso",
                     "Exclusão Cliente",JOptionPane.INFORMATION_MESSAGE);
-            try {
-                excluiRegistroArquivo();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
+       
         } else if (resposta == JOptionPane.NO_OPTION) {
 
         }
@@ -579,19 +560,19 @@ public class CadastroClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void bt_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AlterarActionPerformed
-        int linhaSelecionada = tbCliente.getSelectedRow();
-        if (linhaSelecionada >= 0) {
-            DefaultTableModel dtm = (DefaultTableModel) tbCliente.getModel();
-            String nome = txtNome.getText();
-            String telefone = txtTelefone.getText();
-            String cpf = txtTelefone.getText();
-            int idade = Integer.parseInt(txtIdade.getText());
-            dtm.setValueAt(nome, linhaSelecionada, 1);
-            dtm.setValueAt(telefone, linhaSelecionada, 2);
-            dtm.setValueAt(cpf, linhaSelecionada, 3);
-            dtm.setValueAt(idade, linhaSelecionada, 4);
-            transformaTabelaMatriz();
-            gravaDadosArquivo();
+           int linhaSelecionada = tbCliente.getSelectedRow();
+     if (linhaSelecionada >= 0) {
+         DefaultTableModel dtm = (DefaultTableModel) tbCliente.getModel();
+         String nome = txtNome.getText();
+         String telefone = txtTelefone.getText();
+         String cpf = txtCpf.getText();
+         int idade = Integer.parseInt(txtIdade.getText());
+         dtm.setValueAt(nome, linhaSelecionada, 0);
+         dtm.setValueAt(telefone, linhaSelecionada, 1);
+         dtm.setValueAt(cpf, linhaSelecionada, 2);
+         dtm.setValueAt(idade, linhaSelecionada, 3);
+         transformaTabelaMatriz();
+         gravaDadosArquivo();
         }
     }//GEN-LAST:event_bt_AlterarActionPerformed
 
@@ -623,10 +604,8 @@ public class CadastroClientes extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastroClientes().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CadastroClientes().setVisible(true);
         });
     }
 
